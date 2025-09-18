@@ -1,0 +1,30 @@
+export const products = [
+  {
+    id: 1,
+    name: "Womanica Premium XL Sanitary Pads (Pack of 4, 24 pads)",
+    price: 133,
+    originalPrice: 268,
+    discount: "50% off",
+    rating: 4.0,
+    reviews: 2562,
+    ratingsCount: 7310,
+    images: ["/image4.png", "/image4.png", "/image4.png"], // dummy
+    brand: "Womanica",
+    size: "Free Size",
+    details: `Womanica premium XL size sanitary pads with extra coverage, pack of 4 with 24 sanitary pads. Soft, absorbent and comfortable.`,
+  },
+  {
+    id: 2,
+    name: "Stylish Men T-Shirt",
+    price: 399,
+    originalPrice: 799,
+    discount: "50% off",
+    rating: 4.5,
+    reviews: 1240,
+    ratingsCount: 5800,
+    images: ["/image3.png", "/image3.png"],
+    brand: "TrendR",
+    size: "M, L, XL",
+    details: `Trendy cotton t-shirt with premium fabric.`,
+  },
+];
