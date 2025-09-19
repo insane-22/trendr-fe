@@ -53,7 +53,7 @@ export const Navbar = () => {
           </div>
 
           <Link
-            href="/login"
+            href="/profile"
             className="flex flex-col items-center gap-0.5 hover:text-[#9C27B0] text-gray-700"
           >
             <User2 className="h-5 w-5" />

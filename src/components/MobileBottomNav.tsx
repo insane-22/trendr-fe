@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { Home, ListOrdered, ShoppingBag, HelpCircle, User2 } from "lucide-react";
+import { Home, ShoppingBag, HelpCircle, User2, ListVideo } from "lucide-react";
 
 export default function MobileBottomNav() {
   return (
@@ -16,11 +16,11 @@ export default function MobileBottomNav() {
         </Link>
 
         <Link
-          href="/categories"
+          href="/explore"
           className="flex flex-col items-center text-xs text-gray-600 hover:text-purple-600"
         >
-          <ListOrdered size={20} />
-          <span>Categories</span>
+          <ListVideo size={20} />
+          <span>Explore</span>
         </Link>
 
         <Link
