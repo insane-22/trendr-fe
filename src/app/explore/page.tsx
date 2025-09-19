@@ -1,174 +1,130 @@
 "use client";
 
 import { useState } from "react";
-import { Heart, MessageCircle, Share2 } from "lucide-react";
-
-const videos = [
-  { id: 1, src: "/reel1.mp4", user: "UserOne", caption: "Cool outfit drop 🔥" },
-  { id: 2, src: "/reel2.mp4", user: "UserTwo", caption: "Festive vibes ✨" },
-  { id: 3, src: "/reel3.mp4", user: "UserThree", caption: "Best deal of the day 💸" },
-];
-
-export default function ExplorePage() {
-  const [likes, setLikes] = useState<{ [key: number]: boolean }>({});
-
-  const toggleLike = (id: number) => {
-    setLikes((prev) => ({ ...prev, [id]: !prev[id] }));
-  };
-
-  return (
-    <main className="h-screen w-full overflow-y-scroll snap-y snap-mandatory bg-black">
-      {videos.map((video) => (
-        <section
-          key={video.id}
-          className="relative h-screen w-full snap-start flex items-center justify-center"
-        >
-          {/* Video fills full screen */}
-          <video
-            src={video.src}
-            className="h-full w-full object-cover"
-            autoPlay
-            loop
-            muted
-          />
-
-          {/* Overlay gradient */}
-          <div className="absolute inset-0 bg-gradient-to-b from-black/20 to-black/70"></div>
-
-          {/* Bottom info */}
-          <div className="absolute bottom-20 left-4 text-white max-w-[70%]">
-            <p className="font-semibold">@{video.user}</p>
-            <p className="text-sm">{video.caption}</p>
-          </div>
-
-          {/* Right-side actions */}
-          <div className="absolute bottom-24 right-4 flex flex-col items-center gap-6 text-white">
-            <button onClick={() => toggleLike(video.id)}>
-              <Heart
-                size={32}
-                className={likes[video.id] ? "fill-red-500 text-red-500" : ""}
-              />
-            </button>
-            <button>
-              <MessageCircle size={32} />
-            </button>
-            <button>
-              <Share2 size={32} />
-            </button>
-          </div>
-        </section>
-      ))}
-    </main>
-  );
-}
-
-
-/*
-"use client";
-
-import { motion, useMotionValue, useTransform, AnimatePresence } from "framer-motion";
-import { useState } from "react";
+import { TinderStack } from "@/components/TinderStack";
+import { LinkIcon } from "lucide-react";
 
 const reels = [
   {
     id: 1,
-    video: "/reel1.mp4",
+    video: "/local/reel3.mp4",
+    creator: "Riya Patel",
+    description: "Casual kurti outfit for daily wear 🌸",
+    likes: 85,
     products: [
-      { id: 101, name: "Red Saree", img: "/saree.jpg", price: "₹1299" },
-      { id: 102, name: "Gold Earrings", img: "/earrings.jpg", price: "₹499" },
+      { id: 101, name: "Red Saree", img: "/local/kurti.png", price: "₹1299" },
+      {
+        id: 102,
+        name: "Gold Earrings",
+        img: "/local/kurti.png",
+        price: "₹499",
+      },
     ],
   },
   {
     id: 2,
-    video: "/reel2.mp4",
+    video: "/local/reel2.mp4",
+    creator: "Ananya Sharma",
+    description: "Styling a gorgeous festive saree with gold accessories ✨",
+    likes: 120,
     products: [
-      { id: 201, name: "Kurti Set", img: "/kurti.jpg", price: "₹899" },
-      { id: 202, name: "Heels", img: "/heels.jpg", price: "₹799" },
-    ],
-  },
-  {
-    id: 3,
-    video: "/reel3.mp4",
-    products: [
-      { id: 301, name: "Western Dress", img: "/dress.jpg", price: "₹1599" },
+      { id: 201, name: "Kurti Set", img: "/local/kurti.png", price: "₹899" },
+      { id: 202, name: "Heels", img: "/local/kurti.png", price: "₹799" },
     ],
   },
 ];
 
 export default function ExploreReels() {
-  const [currentIndex, setCurrentIndex] = useState(0);
+  const [showProducts, setShowProducts] = useState<number | null>(null);
+  const [likes, setLikes] = useState(
+    Object.fromEntries(reels.map((r) => [r.id, r.likes]))
+  );
 
-  const handleSwipe = (dir: "left" | "right") => {
-    if (dir === "left" || dir === "right") {
-      setCurrentIndex((prev) => (prev + 1) % reels.length);
+  const handleLiked = (reelId: number) => {
+    setLikes((prev) => ({
+      ...prev,
+      [reelId]: prev[reelId] + 1,
+    }));
+  };
+
+  const handleShare = async (reel: any) => {
+    const shareData = {
+      title: "Check out this Trendr Reel",
+      text: `${reel.creator} - ${reel.description}`,
+      url: window.location.href + `?reel=${reel.id}`,
+    };
+
+    try {
+      if (navigator.share) {
+        await navigator.share(shareData);
+      } else {
+        await navigator.clipboard.writeText(shareData.url);
+        alert("Link copied to clipboard!");
+      }
+    } catch (err) {
+      console.error("Error sharing:", err);
     }
   };
 
   return (
-    <div className="relative w-full h-screen bg-black overflow-hidden">
-      <AnimatePresence>
-        {reels
-          .slice(currentIndex, currentIndex + 1)
-          .map((reel, index) => (
-            <SwipeableReel
-              key={reel.id}
-              reel={reel}
-              onSwipe={handleSwipe}
-            />
-          ))}
-      </AnimatePresence>
+    <div className="w-full h-screen overflow-y-scroll snap-y snap-mandatory bg-black">
+      {reels.map((reel) => (
+        <div
+          key={reel.id}
+          className="relative w-full h-screen snap-start flex items-center justify-center"
+        >
+          <video
+            src={reel.video}
+            className="w-full h-full object-cover"
+            autoPlay
+            loop
+            muted
+          />
+
+          <div className="absolute bottom-0 left-0 right-0 h-40 bg-gradient-to-t from-black/80 to-transparent" />
+          <div className="absolute top-6 left-4 text-white max-w-xs">
+            <p className="font-semibold text-lg">{reel.creator}</p>
+            <p className="text-sm text-gray-200 line-clamp-2">
+              {reel.description}
+            </p>
+          </div>
+
+          <div className="absolute bottom-24 right-3 flex flex-col items-center gap-4 text-white">
+            <div className="flex flex-row items-center gap-6">
+              <button
+                onClick={() => handleLiked(reel.id)}
+                className="flex flex-col items-center"
+              >
+                <span className="text-2xl">❤️</span>
+                <span className="text-sm">{likes[reel.id]}</span>
+              </button>
+              <button
+                onClick={() => handleShare(reel)}
+                className="flex flex-col items-center"
+              >
+                <LinkIcon className="text-2xl" />
+                <span className="text-sm">Share</span>
+              </button>
+            </div>
+
+            <button
+              onClick={() => setShowProducts(reel.id)}
+              className="bg-white text-black px-3 py-1.5 rounded-lg shadow font-semibold text-xs"
+            >
+              See Products
+            </button>
+          </div>
+
+          {showProducts === reel.id && (
+            <div className="absolute inset-0 bg-black/90 flex items-center justify-center z-50">
+              <TinderStack
+                products={reel.products}
+                onClose={() => setShowProducts(null)}
+              />
+            </div>
+          )}
+        </div>
+      ))}
     </div>
   );
 }
-
-function SwipeableReel({ reel, onSwipe }: any) {
-  const x = useMotionValue(0);
-  const rotate = useTransform(x, [-300, 300], [-20, 20]);
-
-  return (
-    <motion.div
-      className="absolute inset-0 flex flex-col items-center justify-center"
-      drag="x"
-      style={{ x, rotate }}
-      dragConstraints={{ left: 0, right: 0 }}
-      dragElastic={0.6}
-      onDragEnd={(_, info) => {
-        if (info.offset.x > 150) onSwipe("right");
-        else if (info.offset.x < -150) onSwipe("left");
-      }}
-      initial={{ opacity: 0, scale: 0.9 }}
-      animate={{ opacity: 1, scale: 1 }}
-      exit={{ opacity: 0, scale: 0.9 }}
-      transition={{ duration: 0.3 }}
-    >
-      <video
-        src={reel.video}
-        className="w-full h-screen object-cover"
-        autoPlay
-        loop
-        muted
-      />
-
-      <div className="absolute bottom-6 left-0 right-0 px-4">
-        <div className="flex gap-3 overflow-x-auto scrollbar-hide">
-          {reel.products.map((p: any) => (
-            <div
-              key={p.id}
-              className="min-w-[140px] bg-white rounded-lg shadow-md p-2 flex-shrink-0"
-            >
-              <img
-                src={p.img}
-                alt={p.name}
-                className="w-full h-28 object-cover rounded-md"
-              />
-              <p className="text-sm mt-2 font-medium">{p.name}</p>
-              <p className="text-pink-600 font-semibold">{p.price}</p>
-            </div>
-          ))}
-        </div>
-      </div>
-    </motion.div>
-  );
-}
-
-*/

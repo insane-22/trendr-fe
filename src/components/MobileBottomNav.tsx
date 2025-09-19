@@ -40,7 +40,7 @@ export default function MobileBottomNav() {
         </Link>
 
         <Link
-          href="/account"
+          href="/profile"
           className="flex flex-col items-center text-xs text-gray-600 hover:text-purple-600"
         >
           <User2 size={20} />

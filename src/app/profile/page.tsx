@@ -5,18 +5,18 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
+import Link from "next/link";
 
 export default function AccountPage() {
   const [user] = useState({
     name: "Bhumika Bachchan",
     email: "bhumika@example.com",
     avatar: "",
-    isInfluencer: true,
+    isInfluencer: false,
   });
 
   return (
     <div className="p-4 sm:p-6 max-w-5xl mx-auto">
-      {/* Header Section */}
       <Card className="mb-6 shadow-lg">
         <CardContent className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 p-6">
           <div className="flex items-center gap-4">
@@ -33,9 +33,7 @@ export default function AccountPage() {
         </CardContent>
       </Card>
 
-      {/* Tabs Section */}
       <Tabs defaultValue="profile" className="w-full">
-        {/* Tabs: scrollable on mobile */}
         <TabsList className="flex w-full overflow-x-auto rounded-lg no-scrollbar">
           <TabsTrigger value="profile" className="flex-1 px-4 py-2 text-sm">
             Profile Info
@@ -48,7 +46,6 @@ export default function AccountPage() {
           </TabsTrigger>
         </TabsList>
 
-        {/* Profile Info */}
         <TabsContent value="profile">
           <Card className="shadow-md">
             <CardContent className="p-6 space-y-4 text-sm sm:text-base">
@@ -62,7 +59,6 @@ export default function AccountPage() {
                 <strong>Phone:</strong> +91 9876543210
               </p>
 
-              {/* Influencer Account Section */}
               <div className="mt-6 border-t pt-4">
                 <h3 className="font-semibold text-base sm:text-lg mb-3">
                   Influencer Account
@@ -73,18 +69,22 @@ export default function AccountPage() {
                     <p className="text-muted-foreground text-sm sm:text-base">
                       You don’t have an influencer account yet.
                     </p>
-                    <Button className="w-full sm:w-auto">
-                      Setup Influencer Account
-                    </Button>
+                    <Link href="/influencer/setup">
+                      <Button className="w-full sm:w-auto">
+                        Setup Influencer Account
+                      </Button>
+                    </Link>
                   </div>
                 ) : (
                   <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
                     <span className="text-green-600 font-medium text-sm sm:text-base">
                       ✅ Influencer Account Active
                     </span>
-                    <Button variant="outline" className="w-full sm:w-auto">
-                      Go to Dashboard
-                    </Button>
+                    <Link href="/influencer/dashboard">
+                      <Button variant="outline" className="w-full sm:w-auto">
+                        Go to Dashboard
+                      </Button>
+                    </Link>
                   </div>
                 )}
               </div>
@@ -92,7 +92,6 @@ export default function AccountPage() {
           </Card>
         </TabsContent>
 
-        {/* Security */}
         <TabsContent value="security">
           <Card className="shadow-md">
             <CardContent className="p-6 space-y-3">
@@ -109,7 +108,6 @@ export default function AccountPage() {
           </Card>
         </TabsContent>
 
-        {/* Preferences */}
         <TabsContent value="preferences">
           <Card className="shadow-md">
             <CardContent className="p-6 space-y-4">
@@ -130,7 +128,6 @@ export default function AccountPage() {
         </TabsContent>
       </Tabs>
 
-      {/* Logout */}
       <div className="mt-6 mb-16 flex justify-center">
         <Button variant="destructive" className="w-full sm:w-auto">
           Logout
