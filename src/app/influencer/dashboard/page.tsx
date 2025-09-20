@@ -1,13 +1,28 @@
-"use client"
+"use client";
 
 import { useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
-import { ResponsiveContainer, LineChart, Line, XAxis, YAxis, Tooltip, CartesianGrid } from "recharts";
+import {
+  ResponsiveContainer,
+  LineChart,
+  Line,
+  XAxis,
+  YAxis,
+  Tooltip,
+  CartesianGrid,
+} from "recharts";
+import { UploadButton } from "@/utils/uploadthing";
 
 export default function InfluencerDashboard() {
   const [videos, setVideos] = useState([
@@ -50,8 +65,20 @@ export default function InfluencerDashboard() {
             </DialogHeader>
             <div className="space-y-4">
               <div>
-                <Label>Upload Video</Label>
-                <Input type="file" accept="video/*" />
+                <UploadButton
+                  endpoint="videoUploader"
+                  onClientUploadComplete={(res) => {
+                    console.log("Uploaded:", res[0].ufsUrl);
+                  }}
+                  onUploadError={(error: Error) => {
+                    console.error(error);
+                  }}
+                  className="mt-4"
+                  appearance={{
+                    button: "bg-blue-500 hover:bg-blue-600 p-4 text-white",
+                    allowedContent: "text-sm text-gray-500",
+                  }}
+                />
               </div>
               <div>
                 <Label>Caption</Label>
@@ -92,7 +119,10 @@ export default function InfluencerDashboard() {
         </CardHeader>
         <CardContent className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {videos.map((video) => (
-            <div key={video.id} className="border rounded-lg p-4 shadow-sm space-y-2">
+            <div
+              key={video.id}
+              className="border rounded-lg p-4 shadow-sm space-y-2"
+            >
               <div className="bg-gray-200 h-32 flex items-center justify-center text-gray-500">
                 🎬 Video {video.id}
               </div>
