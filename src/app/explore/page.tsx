@@ -67,9 +67,9 @@ export default function ExploreReels() {
   };
 
   return (
-    <div className="w-full h-screen overflow-y-scroll snap-y snap-mandatory bg-black">
+    <div className="w-full h-screen overflow-y-scroll snap-y snap-mandatory bg-black overscroll-none">
       {reels.map((reel) => (
-        <div
+        <section
           key={reel.id}
           className="relative w-full h-screen snap-start flex items-center justify-center"
         >
@@ -89,7 +89,7 @@ export default function ExploreReels() {
             </p>
           </div>
 
-          <div className="absolute bottom-24 right-3 flex flex-col items-center gap-4 text-white">
+          <div className="absolute bottom-32 right-3 flex flex-col items-center gap-4 text-white">
             <div className="flex flex-row items-center gap-6">
               <button
                 onClick={() => handleLiked(reel.id)}
@@ -114,7 +114,6 @@ export default function ExploreReels() {
               See Products
             </button>
           </div>
-
           {showProducts === reel.id && (
             <div className="absolute inset-0 bg-black/90 flex items-center justify-center z-50">
               <TinderStack
@@ -123,7 +122,7 @@ export default function ExploreReels() {
               />
             </div>
           )}
-        </div>
+        </section>
       ))}
     </div>
   );

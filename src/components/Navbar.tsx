@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { ShoppingCart, User2, Menu, X } from "lucide-react";
+import { ShoppingCart, User2, Menu, X, Heart } from "lucide-react";
 import SearchInput from "./SearchInput";
 import { useState } from "react";
 
@@ -61,14 +61,10 @@ export const Navbar = () => {
           </Link>
 
           <Link
-            href="/cart"
+            href="/wishlist"
             className="flex flex-col items-center gap-0.5 hover:text-[#9C27B0] text-gray-700 relative"
           >
-            <ShoppingCart className="h-5 w-5" />
-            <span className="hidden md:block">Cart</span>
-            <span className="absolute top-0 right-[-8px] text-xs bg-[#9C27B0] text-white rounded-full px-1">
-              0
-            </span>
+            <Heart className="h-5 w-5" />
           </Link>
 
           <button

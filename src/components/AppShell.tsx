@@ -10,11 +10,11 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
   const isExplorePage = pathname.startsWith("/explore");
 
   return (
-    <>
+    <div className="flex flex-col min-h-screen">
       {!isExplorePage && <Navbar />}
       <Toaster />
-      {children}
-    <MobileBottomNav />
-    </>
+      <main className="flex-1 pb-14 md:pb-0">{children}</main>
+      <MobileBottomNav />
+    </div>
   );
 }
