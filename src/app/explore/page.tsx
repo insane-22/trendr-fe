@@ -115,7 +115,7 @@ export default function ExploreReels() {
             </p>
           </div>
 
-          <div className="absolute bottom-24 right-3 flex flex-col items-center gap-4 text-white">
+          <div className="absolute bottom-32 right-3 flex flex-col items-center gap-4 text-white">
             <div className="flex flex-row items-center gap-6">
               <button
                 onClick={() => handleLiked(video.id)}
