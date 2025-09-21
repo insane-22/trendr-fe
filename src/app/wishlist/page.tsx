@@ -7,8 +7,8 @@ import axios from "axios";
 import toast from "react-hot-toast";
 import Link from "next/link";
 
-const API_BASE = "http://localhost:8000";
-const currentUsername = "yukta";
+const API_BASE = process.env.NEXT_PUBLIC_BASE_API;;
+const currentUsername = "bhumi";
 // const products = [
 //   {
 //     id: 1,

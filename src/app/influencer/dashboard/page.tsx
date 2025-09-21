@@ -33,6 +33,8 @@ import { UploadButton } from "@/utils/uploadthing";
 import axios from "axios";
 import toast from "react-hot-toast";
 
+const API_BASE = process.env.NEXT_PUBLIC_BASE_API;;
+
 export default function InfluencerDashboard() {
   const [caption, setCaption] = useState("");
   const [products, setProducts] = useState<string[]>([]);
@@ -43,7 +45,7 @@ export default function InfluencerDashboard() {
   useEffect(() => {
     const fetchVideos = async () => {
       try {
-        const res = await axios.get("http://localhost:8000/api/videos/", {
+        const res = await axios.get(`${API_BASE}/api/videos/`, {
           params: { username: "riya" },
         });
         setVideos(res.data);
@@ -75,7 +77,7 @@ export default function InfluencerDashboard() {
       };
 
       const res = await axios.post(
-        "http://localhost:8000/api/videos/create_reel/",
+        `${API_BASE}/api/videos/create_reel/`,
         payload
       );
 

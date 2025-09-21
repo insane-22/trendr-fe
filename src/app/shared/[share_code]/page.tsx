@@ -7,7 +7,7 @@ import { Heart } from "lucide-react";
 import axios from "axios";
 import Link from "next/link";
 
-const API_BASE = "http://localhost:8000";
+const API_BASE = process.env.NEXT_PUBLIC_BASE_API;;
 
 interface Product {
   id: number;

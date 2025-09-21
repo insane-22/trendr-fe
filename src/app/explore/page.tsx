@@ -26,6 +26,8 @@
     products: Product[];
   }
 
+  const API_BASE = process.env.NEXT_PUBLIC_BASE_API;
+
   export default function ExploreReels() {
     const [videos, setVideos] = useState<Video[]>([]);
     const [loading, setLoading] = useState(true);
@@ -35,7 +37,9 @@
     useEffect(() => {
       const fetchVideos = async () => {
         try {
-          const res = await fetch("http://localhost:8000/api/videos/");
+          const res = await fetch(
+            `${API_BASE}/api/videos/`
+          );
           const data: Video[] = await res.json();
 
           const videosWithUploader = data.map((v) => ({
@@ -59,9 +63,7 @@
 
     const handleLiked = async (videoId: number) => {
       try {
-        const res = await fetch(
-          `http://localhost:8000/api/videos/${videoId}/like/`,
-          {
+        const res = await fetch(`${API_BASE}/api/videos/${videoId}/like/`, {
             method: "POST",
           }
         );

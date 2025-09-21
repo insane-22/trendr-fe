@@ -10,9 +10,9 @@ import {
 import { useState } from "react";
 import toast from "react-hot-toast";
 
-const API_BASE = "http://localhost:8000";
-const currentUsername = "yukta";
-const defaultWishlistName = "yukta";
+const API_BASE = process.env.NEXT_PUBLIC_BASE_API;;
+const currentUsername = "bhumi";
+const defaultWishlistName = "bhumi";
 
 export function TinderStack({ products, onClose }: any) {
   const [index, setIndex] = useState(0);

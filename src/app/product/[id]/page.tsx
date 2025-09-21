@@ -6,8 +6,8 @@ import { Heart } from "lucide-react";
 import axios from "axios";
 import toast from "react-hot-toast";
 
-const API_BASE = "http://localhost:8000";
-const currentUsername = "yukta";
+const API_BASE = process.env.NEXT_PUBLIC_BASE_API;;
+const currentUsername = "bhumi";
 
 interface ProductPhoto {
   id: number;
