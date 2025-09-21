@@ -1,9 +1,18 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  /* config options here */
-images: {
-    domains: ["x3aeqcrof2.ufs.sh"], 
-  },};
+  images: {
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: '**', 
+      },
+      {
+        protocol: 'http',
+        hostname: '**', 
+      },
+    ],
+  },
+};
 
 export default nextConfig;

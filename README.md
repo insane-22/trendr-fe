@@ -1,36 +1,41 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Meesho Dice Hackathon Project – Frontend
 
-## Getting Started
+## Project Overview
 
-First, run the development server:
+This project is the frontend for a **Meesho app** aimed at enhancing the shopping and social experience for users and influencers.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## Key goals
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+- Let users create and personalized wishlists for different occasions.
+- Allow influencers to upload reels and tag products in them.
+- Enable users to interact with products via swipe gestures (like/reject).
+- Maintain a leaderboard for most liked Reel.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+--- 
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Features
 
-## Learn More
+### 1. Personalized and Shareable Wishlists
 
-To learn more about Next.js, take a look at the following resources:
+- Users can create multiple wishlists for specific occasions (birthdays, festivals, etc.).
+- Wishlists can be shared with other users.
+- Backend supports CRUD operations for wishlists and ensures proper product-user association.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### 2. Influencer Reels with Product Tagging
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- Influencers can upload reels showcasing products.
+- Products can be tagged and viewed within reels for easy access.
+- Tracks likes for engagement metrics.
 
-## Deploy on Vercel
+### 3. Swipe-Based Product Interaction
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- Users can swipe left to reject a product or swipe right to add it to a wishlist(dating-app like feel).
+- Backend updates the user's preferences and wishlists accordingly.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+### 4. Leaderboard for Top Reels
+
+- Calculates weekly top reels based on engagement metrics (likes).
+- Provides real-time leaderboard updates.
+
+---
+
