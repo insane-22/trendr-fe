@@ -89,7 +89,7 @@ export default function WishlistManager() {
       })
       .catch((err) => {
         console.error("Failed to create wishlist:", err);
-        alert(err.response?.data?.error || "Something went wrong");
+        toast.error(err.response?.data?.error || "Something went wrong");
       });
   };
 
