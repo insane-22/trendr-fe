@@ -1,79 +1,109 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { useParams } from "next/navigation";
-import { products } from "@/data/product";
+import { use, useEffect, useState } from "react";
 import Image from "next/image";
 import { Heart } from "lucide-react";
 import axios from "axios";
 import toast from "react-hot-toast";
 
-const currentUsername = "Riya Jindal";
+const API_BASE = "http://localhost:8000";
+const currentUsername = "yukta";
 
-export default function ProductPage() {
-  const params = useParams();
-  const product = products.find((p) => p.id === Number(params.id));
+interface ProductPhoto {
+  id: number;
+  photo_url: string;
+}
 
+interface Product {
+  id: number;
+  name: string;
+  description: string;
+  rating: number;
+  price: number;
+  photos: ProductPhoto[];
+}
+
+interface Wishlist {
+  id: number;
+  name: string;
+  hasProduct: boolean;
+}
+
+export default function ProductPage({ params }: { params: Promise<{ id: string }> }) {
+  const { id } = use(params);
+  const [product, setProduct] = useState<Product | null>(null);
   const [wishlisted, setWishlisted] = useState(false);
   const [showModal, setShowModal] = useState(false);
-  const [wishlists, setWishlists] = useState<
-    { id: number; name: string; hasProduct: boolean }[]
-  >([]);
+  const [wishlists, setWishlists] = useState<Wishlist[]>([]);
 
   useEffect(() => {
-    const checkWishlisted = async () => {
-      if (!product) return;
-
-      axios
-        .get("http://localhost:8000/api/wishlist/names/", {
-          params: { username: currentUsername, product_id: product.id },
-        })
-        .then((res) => {
-          setWishlists(res.data);
-          const isWishlisted = res.data.some(
-            (wishlist: any) => wishlist.hasProduct
-          );
-          setWishlisted(isWishlisted);
-        })
-        .catch((err) => console.error(err));
+    const fetchProduct = async () => {
+      try {
+        const res = await fetch(`${API_BASE}/api/products/${id}/`, {
+          cache: "no-store",
+        });
+        if (res.ok) {
+          const data = await res.json();
+          setProduct(data);
+        } else {
+          setProduct(null);
+        }
+      } catch (err) {
+        console.error("Failed to fetch product:", err);
+        setProduct(null);
+      }
     };
+    fetchProduct();
+  }, [id]);
 
-    checkWishlisted();
+  useEffect(() => {
+    if (!product) return;
+    axios
+      .get(`${API_BASE}/api/wishlist/names/`, {
+        params: { username: currentUsername, product_id: product.id },
+      })
+      .then((res) => {
+        setWishlists(res.data);
+        const isWishlisted = res.data.some((w: Wishlist) => w.hasProduct);
+        setWishlisted(isWishlisted);
+      })
+      .catch((err) => console.error(err));
   }, [product]);
 
-  const handleWishlistClick = async () => {
+  const handleWishlistClick = () => {
     setShowModal(true);
   };
 
   const handleAddToWishlist = async (wishlistName: string) => {
     if (!product) return;
     try {
-      await axios.post("http://localhost:8000/api/wishlist/add-product/", {
+      await axios.post(`${API_BASE}/api/wishlist/add-product/`, {
         product_id: product.id,
         wishlist_name: wishlistName,
         username: currentUsername,
       });
 
       setWishlists((prev) =>
-        prev.map((wishlist) =>
-          wishlist.name === wishlistName
-            ? { ...wishlist, hasProduct: true }
-            : wishlist
+        prev.map((w) =>
+          w.name === wishlistName ? { ...w, hasProduct: true } : w
         )
       );
       setWishlisted(true);
       setShowModal(false);
-      toast.success(`Added to wishlist ❤️`);
+      toast.success("Added to wishlist ❤️");
     } catch (err) {
       console.error(err);
-      alert("Failed to add product to wishlist");
+      toast.error("Failed to add product to wishlist");
     }
   };
 
   if (!product) {
     return (
-      <div className="p-6 text-center text-sm md:text-base">
-        Product not found
+      <div className="text-center mt-10">
+        <h1 className="text-2xl font-bold text-gray-800">Product Not Found</h1>
+        <p className="mt-4 text-gray-600">
+          The product you are looking for does not exist.
+        </p>
       </div>
     );
   }
@@ -82,20 +112,22 @@ export default function ProductPage() {
     <main className="max-w-7xl mx-auto px-4 sm:px-6 py-6 sm:py-10">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-10">
         <div>
-          <Image
-            src={product.images[0]}
-            alt={product.name}
-            width={500}
-            height={500}
-            className=" h-auto object-contain rounded-md border"
-            priority
-          />
+          {product.photos.length > 0 && (
+            <Image
+              src={product.photos[0].photo_url}
+              alt={product.name}
+              width={500}
+              height={500}
+              className="h-auto object-contain rounded-md border"
+              priority
+            />
+          )}
           <div className="flex flex-wrap gap-2 mt-4">
-            {product.images.map((img, idx) => (
+            {product.photos.map((photo) => (
               <Image
-                key={idx}
-                src={img}
-                alt={`${product.name}-${idx}`}
+                key={photo.id}
+                src={photo.photo_url}
+                alt={`${product.name}-${photo.id}`}
                 width={80}
                 height={80}
                 className="border rounded-md cursor-pointer hover:ring-2 hover:ring-purple-500"
@@ -113,29 +145,20 @@ export default function ProductPage() {
             <span className="text-xl sm:text-2xl font-bold text-gray-900">
               ₹{product.price}
             </span>
-            <span className="line-through text-gray-400 text-sm sm:text-base">
-              ₹{product.originalPrice}
-            </span>
-            <span className="text-green-600 font-medium text-sm sm:text-base">
-              {product.discount}
-            </span>
           </div>
 
           <div className="mt-2 text-sm sm:text-base text-gray-600">
-            ⭐ {product.rating} ({product.reviews} Reviews,{" "}
-            {product.ratingsCount} Ratings)
+            ⭐ {product.rating}
           </div>
 
           <div className="mt-4 flex justify-between items-center">
-            {/* Size */}
             <div>
               <p className="text-gray-700 font-medium">Select Size</p>
               <p className="mt-1 border rounded-md px-3 py-2 inline-block text-sm sm:text-base">
-                {product.size}
+                M, L, XL
               </p>
             </div>
 
-            {/* Wishlist */}
             <div className="flex flex-col items-center">
               <button
                 onClick={handleWishlistClick}
@@ -163,15 +186,12 @@ export default function ProductPage() {
             </button>
           </div>
 
-          <div className="mt-6 sm:mt-8">
+          <div className="mt-6 sm:mt-8 mb-10">
             <h2 className="text-lg font-semibold text-gray-800">
               Product Details
             </h2>
             <p className="mt-2 text-gray-600 text-sm sm:text-base">
-              {product.details}
-            </p>
-            <p className="mt-2 text-gray-600 text-sm sm:text-base">
-              <strong>Brand:</strong> {product.brand}
+              {product.description}
             </p>
           </div>
         </div>

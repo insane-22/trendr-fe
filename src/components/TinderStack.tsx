@@ -11,11 +11,11 @@ import { useState } from "react";
 import toast from "react-hot-toast";
 
 const API_BASE = "http://localhost:8000";
-const currentUsername = "Riya Jindal";
-const defaultWishlistName = "gen";
+const currentUsername = "yukta";
+const defaultWishlistName = "yukta";
 
 export function TinderStack({ products, onClose }: any) {
-  const [index, setIndex] = useState(1);
+  const [index, setIndex] = useState(0);
 
   const handleSwipe = async (dir: "left" | "right") => {
     const product=products[index];

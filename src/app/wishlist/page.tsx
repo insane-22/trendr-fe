@@ -8,7 +8,7 @@ import toast from "react-hot-toast";
 import Link from "next/link";
 
 const API_BASE = "http://localhost:8000";
-const currentUsername = "Riya Jindal";
+const currentUsername = "yukta";
 // const products = [
 //   {
 //     id: 1,
