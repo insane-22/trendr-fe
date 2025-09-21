@@ -1,8 +1,17 @@
 # Meesho Dice Hackathon Project – Frontend
 
+### Team Members :
+Bhumika Bachchan, Riya Jindal, Yukta Agrawal
+
+
 ## Project Overview
 
-This project is the frontend for a **Meesho app** aimed at enhancing the shopping and social experience for users and influencers.
+This frontend project brings a Meesho app to life, combining shopping with social discovery for users and influencerss.
+
+<img width="1600" height="659" alt="image" src="https://github.com/user-attachments/assets/dd54489e-fbf3-4317-b6cb-2c3e505e1bda" />
+<img width="1600" height="600" alt="image" src="https://github.com/user-attachments/assets/e84fb01a-149d-48b4-b4c4-a620ffd21d3f" />
+
+---
 
 ## Key goals
 
@@ -38,4 +47,40 @@ This project is the frontend for a **Meesho app** aimed at enhancing the shoppin
 - Provides real-time leaderboard updates.
 
 ---
+
+
+## Getting Started
+
+### 1. Clone the repository
+
+```bash
+git clone https://github.com/insane-22/trendr-fe.git
+cd trendr-fe
+```
+
+### 2. Install Dependencies
+
+```bash
+npm install
+```
+
+### 3. Configure Environment Variables
+
+```bash
+# Copy the .env.example to .env.local:
+cp .env.example .env.local
+
+# Update the .env.local file with your credentials and API endpoints:
+UPLOADTHING_TOKEN='<your-uploadthing-token>'
+NEXT_PUBLIC_BASE_API='<your-backend-api-url>'
+```
+
+### 4. Run the Development Server
+
+```bash
+npm run dev
+```
+
+
+
 
