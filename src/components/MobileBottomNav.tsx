@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { Home, ShoppingBag, HelpCircle, User2, ListVideo } from "lucide-react";
+import { Home, ShoppingBag, User2, ListVideo, List } from "lucide-react";
 
 export default function MobileBottomNav() {
   return (
@@ -32,11 +32,11 @@ export default function MobileBottomNav() {
         </Link>
 
         <Link
-          href="/help"
+          href="/explore/leaderboard"
           className="flex flex-col items-center text-xs text-gray-600 hover:text-purple-600"
         >
-          <HelpCircle size={20} />
-          <span>Help</span>
+          <List size={20} />
+          <span>Ranking</span>
         </Link>
 
         <Link

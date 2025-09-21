@@ -1,24 +1,22 @@
 "use client";
 
-import { useState } from "react";
-
 const weeklyBest = {
   featured: {
     id: 1,
-    video: "/local/reel3.mp4",
+    video: "https://x3aeqcrof2.ufs.sh/f/M24htjg0Yxy7wJteXQNFJkX6cEt9TKx3Q12lCqSubav47zgf",
     creator: "Riya Patel",
     category: "Casual",
-    description: "Casual kurti outfit for daily wear 🌸",
+    description: "Purple dress 🌸",
     likes: 320,
   },
   categories: [
     {
-      category: "Festive",
+      category: "Appliances",
       reel: {
         id: 2,
-        video: "/local/reel2.mp4",
+        video: "https://x3aeqcrof2.ufs.sh/f/M24htjg0Yxy7DndOjtyAGHf41FWPAcXmy3UTEuk7JbwCBSlN",
         creator: "Ananya Sharma",
-        description: "Styling a gorgeous festive saree with gold accessories ✨",
+        description: "Best washing machine ✨",
         likes: 500,
       },
     },
@@ -26,20 +24,10 @@ const weeklyBest = {
       category: "Casual",
       reel: {
         id: 3,
-        video: "/local/reel1.mp4",
+        video: "https://x3aeqcrof2.ufs.sh/f/M24htjg0Yxy7JbRMoSyPHwp1cfhKoixFGsOZyJl5n3eTICqX",
         creator: "Priya Singh",
-        description: "Comfy summer outfit ☀️",
+        description: "Comfy outfit ☀️",
         likes: 280,
-      },
-    },
-    {
-      category: "Accessories",
-      reel: {
-        id: 4,
-        video: "/local/reel4.mp4",
-        creator: "Sneha Verma",
-        description: "Jewelry styling inspo 💍",
-        likes: 150,
       },
     },
   ],
