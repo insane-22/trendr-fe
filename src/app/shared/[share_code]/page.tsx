@@ -32,7 +32,7 @@ export default function SharedWishlistPage() {
 
   useEffect(() => {
     fetchSharedWishlist();
-  }, [share_code]);
+  }, [share_code, ]);
 
   const fetchSharedWishlist = async () => {
     setLoading(true);
