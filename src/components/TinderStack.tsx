@@ -1,5 +1,6 @@
 "use client";
 
+import axios from "axios";
 import {
   motion,
   useMotionValue,
@@ -9,14 +10,30 @@ import {
 import { useState } from "react";
 import toast from "react-hot-toast";
 
-export function TinderStack({ products, onClose }: any) {
-  const [index, setIndex] = useState(0);
+const API_BASE = "http://localhost:8000";
+const currentUsername = "Riya Jindal";
+const defaultWishlistName = "gen";
 
-  const handleSwipe = (dir: "left" | "right") => {
+export function TinderStack({ products, onClose }: any) {
+  const [index, setIndex] = useState(1);
+
+  const handleSwipe = async (dir: "left" | "right") => {
+    const product=products[index];
     if (dir === "right") {
-      toast.success(`${products[index].name} added to wishlist ❤️`);
+      try {
+        await axios.post(`${API_BASE}/api/wishlist/add-product/`, {
+          product_id: product.id,
+          wishlist_name: defaultWishlistName,
+          username: currentUsername,
+        });
+        toast.success(`${product.name} added to wishlist ❤️`);
+      } catch (err: any) {
+        console.error("Failed to add product:", err);
+        toast.error(err.response?.data?.error || "Failed to add product");
+      }
+
     } else {
-      toast(`Skipped ${products[index].name}`);
+      toast(`Skipped ${product.name}`);
     }
 
     if (index < products.length - 1) {
